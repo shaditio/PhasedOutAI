@@ -59,3 +59,18 @@ A function called phasedout_is_valid_play that takes the following arguments:
   - The top card of the discard stack, in the form of a 2-element string (e.g. '3D') or None in the case the discard pile is empty (which can only occur if no player has picked up from the deck).
 
 The function returns a True if 'play' is valid relative to the current game state, and False otherwise. 
+
+### Part 4 (countscores)
+A function called phasedout_score that takes the following single argument: 'hand' where it is the list of cards that the current player holds in their hand, each of which is in the form of a 2-element string.
+
+The function returns the score for the hand (assuming the game has ended, and the player is left with the cards in hand) as a non-negative integer.
+
+### Part 5 (phasedoutAI)
+A function called phasedout_play that takes the following arguments as in Part 3.
+
+The function returns a 2-tuple describing the single play the player wishes to make, made up of a play ID and associated play content, as described below:
+- **1:** Pick up a card from the top of the deck at the start of the player's turn. In this case, the card at the top of the deck is unknown at the time the play is determined, so the play content is set to None (i.e. (1, None)).
+- **2:** Pick up a card from the top of the discard pile at the start of the player's turn, with the play content taking the value of discard (e.g. (2, '2C')).
+- **3:** Place a phase to the table from the player's hand, with the play type being the phase (e.g. (3, [['2S', '2S', '2C'], ['AS', '5S', '5S']])).
+- **4:** Place a single card from the player's hand to a phase on the table, with the play type being a 2-tuple made up of the card the player is attempting to play, and the position they are attempting to play it in, itself in the form of a 3-tuple indicating: (1) the player ID of the phase the card is to be placed on; (2) the group within the phase the card is to placed in; and (3) the index of the position within the group the card is to be played to. For example, (4, ('AD', (1, 0, 3))) indicates that an Ace of Diamonds is to be placed on the phase of Player 1, in Group 1 and index position 3 (i.e. it will be the fourth card in Group 1).
+- **5:** Discard a single card from the player's hand, and in doing so, end the turn (e.g. (5, 'JS') indicates that a Jack of Spades is to be discarded).
